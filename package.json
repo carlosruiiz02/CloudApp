@@ -1,0 +1,12 @@
+{
+  "name": "cloudapp",
+  "version": "1.0.0",
+  "description": "Aplicacion en la nube para estudiantes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
