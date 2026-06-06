@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudApp - Tabla</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111118;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 180px;
+            min-height: 100vh;
+            background: #1a1a24;
+            padding: 30px 16px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #2a2a38;
+            flex-shrink: 0;
+        }
+
+        .sidebar-brand h2 {
+            color: #f0a500;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar-brand span {
+            color: #666;
+            font-size: 0.75rem;
+        }
+
+        .sidebar-nav {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover { background: #22222e; color: #fff; }
+        .nav-item.active { background: #2a2a3e; color: #fff; }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background: #1a1a24;
+            padding: 16px 30px;
+            border-bottom: 1px solid #2a2a38;
+        }
+
+        .topbar-title {
+            color: #f0a500;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            max-width: 700px;
+            background: #1e1e2a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2a2a38;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: #22222e;
+        }
+
+        th {
+            padding: 14px 20px;
+            color: #f0a500;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: left;
+            border-bottom: 1px solid #2a2a38;
+        }
+
+        td {
+            padding: 18px 20px;
+            color: #ccc;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #2a2a38;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #22222e;
+        }
+
+        .td-id {
+            color: #666;
+            font-size: 0.75rem;
+        }
+
+        .badge-ciudad {
+            background: #2a2a3a;
+            color: #aaa;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .empty-msg {
+            text-align: center;
+            color: #555;
+            padding: 40px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2>Cloud Panel</h2>
+            <span>Active Session</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/" class="nav-item">
+                <span>⊞</span> Dashboard
+            </a>
+            <a href="/formulario" class="nav-item">
+                <span>☁</span> Formulario
+            </a>
+            <a href="/imagen" class="nav-item">
+                <span>▦</span> Imagen
+            </a>
+            <a href="/tabla" class="nav-item active">
+                <span>▤</span> Tabla
+            </a>
+        </nav>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <div class="topbar">
+            <span class="topbar-title">CloudCore</span>
+        </div>
+
+        <div class="content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Ciudad</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr>
+                            <td colspan="4" class="empty-msg">No hay registros aún.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        fetch('/api/registros')
+            .then(res => res.json())
+            .then(registros => {
+                const tbody = document.getElementById('tbody');
+
+                if (registros.length === 0) return;
+
+                tbody.innerHTML = '';
+
+                registros.forEach((r, i) => {
+                    const id = `H${String(i + 1).padStart(3, '0')}`;
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="td-id">${id}</td>
+                            <td>${r.nombre}</td>
+                            <td><span class="badge-ciudad"> ${r.ciudad}</span></td>
+                            <td>${r.fecha}</td>
+                        </tr>
+                    `;
+                });
+            });
+    </script>
+
+</body>
+</html>

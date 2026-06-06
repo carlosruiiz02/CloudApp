@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudApp - Formulario</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111118;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 180px;
+            min-height: 100vh;
+            background: #1a1a24;
+            padding: 30px 16px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #2a2a38;
+            flex-shrink: 0;
+        }
+
+        .sidebar-brand h2 {
+            color: #f0a500;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .sidebar-brand span {
+            color: #666;
+            font-size: 0.75rem;
+        }
+
+        .sidebar-nav {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover { background: #22222e; color: #fff; }
+        .nav-item.active { background: #2a2a3e; color: #fff; }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background: #1a1a24;
+            padding: 16px 30px;
+            border-bottom: 1px solid #2a2a38;
+        }
+
+        .topbar-title {
+            color: #f0a500;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenedor {
+            background: #1e1e2a;
+            width: 420px;
+            padding: 40px 35px;
+            border-radius: 16px;
+            box-shadow: 0px 0px 40px rgba(0,0,0,0.4);
+            border: 1px solid #2a2a38;
+        }
+
+        .contenedor h1 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .contenedor p {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            color: #aaa;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        select, input[type="date"], input[type="text"] {
+            width: 100%;
+            padding: 12px 14px;
+            background: #12121e;
+            border: 1px solid #2a2a38;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+
+        select, input[type="date"] {
+            width: 100%;
+            padding: 12px 14px;
+            background: #12121e;
+            border: 1px solid #2a2a38;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            appearance: auto;
+        }
+
+        select:focus, input[type="date"]:focus {
+            outline: none;
+            border-color: #f0a500;
+        }
+
+        .btn-reservar {
+            width: 100%;
+            padding: 14px;
+            background: #f0a500;
+            color: #111;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn-reservar:hover { background: #e09400; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2>Cloud Panel</h2>
+            <span>Active Session</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/" class="nav-item">
+                <span>⊞</span> Dashboard
+            </a>
+            <a href="/formulario" class="nav-item active">
+                <span>☁</span> Formulario
+            </a>
+            <a href="/imagen" class="nav-item">
+                <span>▦</span> Imagen
+            </a>
+            <a href="/tabla" class="nav-item">
+                <span>▤</span> Tabla
+            </a>
+        </nav>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <div class="topbar">
+            <span class="topbar-title">CloudCore</span>
+        </div>
+
+        <div class="content">
+            <div class="contenedor">
+
+                <h1>Regístrate</h1>
+                <p>Verás el registro en la tabla</p>
+
+                <form action="/formulario" method="POST">
+
+                    <label>Ingresa tu nombre</label>
+                    <input type="text" name="nombre" placeholder="Ingresa tu nombre...">
+
+                    <label>Ciudad</label>
+                    <select name="ciudad">
+                        <option value="">Elija un destino...</option>
+                        <option value="Bogotá">Bogotá</option>
+                        <option value="Medellín">Medellín</option>
+                        <option value="Cali">Cali</option>
+                    </select>
+
+                    <label>Fecha de Entrada</label>
+                    <input type="date" name="fecha">
+
+                    <button type="submit" class="btn-reservar">GUARDAR</button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
